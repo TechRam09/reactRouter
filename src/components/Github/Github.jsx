@@ -2,22 +2,22 @@
 import { useEffect, useState } from "react"
 
 // import React from 'react'
-
+import { useLoaderData } from "react-router-dom"
 
 function Github() {
 
-    // Using Normal Method 
-    const [data ,setData] = useState([])
-    useEffect(() => {
-        fetch(`https://api.github.com/users/TechRam09`)   
-        .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setData(data)
-        })
-    },[])
-    
-
+    //Using Normal Method 
+    // const [data ,setData] = useState([])
+    // useEffect(() => {
+    //     fetch(`https://api.github.com/users/TechRam09`)   
+    //     .then(response => response.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             setData(data)
+    //     })
+    // },[])
+    //More optimised method using Loader
+    const data = useLoaderData()
   return (
       <div className=" flex flex-col py-12  md:mx-[500px]  justify-center min-h-[700px]">
           <div className=" bg-black text-white px-12 pb-12">
@@ -40,3 +40,7 @@ function Github() {
 
 export default Github
 
+export const GithubInfo = async () => {
+    const response = fetch(`https://api.github.com/users/TechRam09`)  
+    return (await response).json()
+}
